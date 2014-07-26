@@ -3,20 +3,20 @@ callEng
 
 引擎调用通用shell
 
-一、使用帮助
-callEng.sh -h
+一、使用帮助                             
+  callEng.sh -h
 
  
-二、执行日志说明
-	执行时间 time1 如：20130821150733
-	主日志：./log/call_${SETT_MONTH}/${time1}.log
-	详细日志：./log/${PROGRAM_NAME}_${SETT_MONTH}_${time1}.log
+二、执行日志说明                             
+  执行时间 time1 如：20130821150733                             
+  主日志：./log/call_${SETT_MONTH}/${time1}.log                             
+  详细日志：./log/${PROGRAM_NAME}_${SETT_MONTH}_${time1}.log
 
-三、其他说明
-没有指定地州或者业务时是否使用数据库自动读取（使用Wmsys.Wm_Concat函数需要oracle10.2版本以上）
-需要修改脚本：
-DB_ON=Y
-CONNSTR="USER/PASSWD@TNS_NAME"                   
+三、其他说明                             
+  没有指定地州或者业务时是否使用数据库自动读取（使用Wmsys.Wm_Concat函数需要oracle10.2版本以上）                             
+  需要修改脚本：                             
+  DB_ON=Y                             
+  CONNSTR="USER/PASSWD@TNS_NAME"                   
                                                    
 四、更新历史                                         
   2014-07-26  创建脚本                             
