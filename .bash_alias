@@ -3,20 +3,26 @@ alias h='history 200'
 alias ll='ls -lrt'
 alias la='ls -a'
 
-#版本计算
+#引擎计算
 rwdCal(){
   cd $RWD_HOME/bin
-  ./CalApp -i../config/cal_cfg.ini -c201406 -e0771 -r4120 -y
+  ./CalApp -i../config/cal_cfg.ini $1 $2 $3 $4 $5 $6
 }
 
-#预演计算
-rwdCalM(){
+#引擎报表
+rwdRpt(){
   cd $RWD_HOME/bin
-  ./CalApp -i../config/cal_cfg.ini -c201406 -e0771 -r4120 -ym
+  ./CalApp -i../config/cal_cfg.ini -R $1 $2 $3 $4 $5 $6
 }
 
-#版本翻译
+#引擎翻译
 rwdTran(){
   cd $RWD_HOME/bin
-  ./CalApp -i../config/cal_cfg.ini -c201406 -e0771 -r4120 -y
+  ./CalApp -i../config/cal_cfg.ini $1 $2 $3 $4 $5 $6
+}
+
+#守护进程
+rwdDae(){
+  cd $RWD_HOME/bin
+  ./rwd_daemon -i../config/cal_cfg.ini - d
 }
