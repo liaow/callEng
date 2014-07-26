@@ -20,7 +20,7 @@ LOG_PATH=$SHELL_HOME/log
 #没有指定地州或者业务时是否使用数据库自动读取
 #使用Wmsys.Wm_Concat函数需要oracle10.2版本以上
 DB_ON=Y
-CONNSTR="rwd_busi/airwddb+1@AIRWDDB_124_122"
+CONNSTR="USER/PASSWD@TNS_NAME"
 
 startTime=`date +%s`
 startTimeStr=`date +"%Y%m%d%H%M%S"`
