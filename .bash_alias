@@ -1,0 +1,22 @@
+#ALIAS
+alias h='history 200'
+alias ll='ls -lrt'
+alias la='ls -a'
+
+#版本计算
+rwdCal(){
+  cd $RWD_HOME/bin
+  ./CalApp -i../config/cal_cfg.ini -c201406 -e0771 -r4120 -y
+}
+
+#预演计算
+rwdCalM(){
+  cd $RWD_HOME/bin
+  ./CalApp -i../config/cal_cfg.ini -c201406 -e0771 -r4120 -ym
+}
+
+#版本翻译
+rwdTran(){
+  cd $RWD_HOME/bin
+  ./CalApp -i../config/cal_cfg.ini -c201406 -e0771 -r4120 -y
+}
