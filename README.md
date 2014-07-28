@@ -8,8 +8,8 @@ callEng
 
  
 二、执行日志说明                             
-  执行时间 time1 如：20130821150733                             
-  主日志：./log/call_${time1}.log                           
+  执行时间 startTimeStr 如：20130821150733                             
+  主日志：./log/call_${startTimeStr}.log                           
   详细日志：./log/${PROGRAM_NAME}_${eparchyCode}_${ruleTypeCode}_${startTimeStr}.log
 
 三、其他说明                             
