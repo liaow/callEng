@@ -204,14 +204,14 @@ for ruleTypeCode in ${arrRuleTypeCodes[@]}; do
                 fi
 
                 AMOUNT=` ps -ef |grep executeEng | grep -v $0 | grep "$PROGRAM_NAME" | grep -v grep |sort -u |wc -l `;
-                #同一账期+地市只能有一个在运行限制,如果有业务互斥情况需要加业务限制
-                AMOUNT2=` ps -ef |grep executeEng | grep -v $0 | grep "$PROGRAM_NAME" | grep "$SETT_MONTH" | grep "$eparchyCode" |grep -v grep |sort -u |wc -l `;
+                #同一账期+地市只能有一个账期在运行限制,如果有业务互斥情况需要去掉业务过滤
+                AMOUNT2=` ps -ef |grep executeEng | grep -v $0 | grep "$PROGRAM_NAME" | grep "$ruleTypeCode" | grep "$eparchyCode" |grep -v grep |sort -u |wc -l `;
                 echo `date +"%Y-%m-%d %H:%M:%S"`" ps -ef ,AMOUNT="${AMOUNT}",AMOUNT2="${AMOUNT2}",MAX_ACTIVE="${MAX_ACTIVE} >> $callLogFile
                 while [ "$AMOUNT" -ge ${MAX_ACTIVE} ] || [ "$AMOUNT2" -eq 1 ]; do
                     echo `date +"%Y-%m-%d %H:%M:%S"`" sleep ..." >> $callLogFile
                     sleep 10
                     AMOUNT=` ps -ef |grep executeEng | grep -v $0 | grep "$PROGRAM_NAME" | grep -v grep |sort -u |wc -l `;
-                    AMOUNT2=` ps -ef |grep executeEng | grep -v $0 | grep "$PROGRAM_NAME" | grep "$SETT_MONTH" | grep "$eparchyCode" |grep -v grep |sort -u |wc -l `;
+                    AMOUNT2=` ps -ef |grep executeEng | grep -v $0 | grep "$PROGRAM_NAME" | grep "$ruleTypeCode" | grep "$eparchyCode" |grep -v grep |sort -u |wc -l `;
                     echo `date +"%Y-%m-%d %H:%M:%S"`" in while ps -ef ,AMOUNT="${AMOUNT}",AMOUNT2="${AMOUNT2}",MAX_ACTIVE="${MAX_ACTIVE} >> $callLogFile
                 done
                 sleep 10
