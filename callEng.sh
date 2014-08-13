@@ -18,7 +18,7 @@ LOG_PATH=$SHELL_HOME/log
 #没有指定地州或者业务时是否使用数据库自动读取
 #使用Wmsys.Wm_Concat函数需要oracle10.2版本以上
 DB_ON=Y
-CONNSTR="rwd_busi/airwddb+1@AIRWDDB_124_122"
+CONNSTR="user/passwd@tns"
 
 startTime=`date +%s`
 startTimeStr=`date +"%Y%m%d%H%M%S"`
@@ -203,14 +203,15 @@ for ruleTypeCode in ${arrRuleTypeCodes[@]}; do
                     rm $programLogFile
                 fi
 
-                AMOUNT=` ps -ef |grep executeEng | grep -v $0 | grep -v grep |sort -u |wc -l `;
-                AMOUNT2=` ps -ef |grep executeEng | grep -v $0 | grep "$eparchyCode" |grep -v grep |sort -u |wc -l `;
+                AMOUNT=` ps -ef |grep executeEng | grep -v $0 | grep "$PROGRAM_NAME" | grep -v grep |sort -u |wc -l `;
+                #同一账期+地市只能有一个在运行限制,如果有业务互斥情况需要加业务限制
+                AMOUNT2=` ps -ef |grep executeEng | grep -v $0 | grep "$PROGRAM_NAME" | grep "$SETT_MONTH" | grep "$eparchyCode" |grep -v grep |sort -u |wc -l `;
                 echo `date +"%Y-%m-%d %H:%M:%S"`" ps -ef ,AMOUNT="${AMOUNT}",AMOUNT2="${AMOUNT2}",MAX_ACTIVE="${MAX_ACTIVE} >> $callLogFile
                 while [ "$AMOUNT" -ge ${MAX_ACTIVE} ] || [ "$AMOUNT2" -eq 1 ]; do
                     echo `date +"%Y-%m-%d %H:%M:%S"`" sleep ..." >> $callLogFile
                     sleep 10
-                    AMOUNT=` ps -ef |grep executeEng | grep -v $0 | grep -v grep |sort -u |wc -l `;
-                    AMOUNT2=` ps -ef |grep executeEng | grep -v $0 | grep "$eparchyCode" |grep -v grep |sort -u |wc -l `;
+                    AMOUNT=` ps -ef |grep executeEng | grep -v $0 | grep "$PROGRAM_NAME" | grep -v grep |sort -u |wc -l `;
+                    AMOUNT2=` ps -ef |grep executeEng | grep -v $0 | grep "$PROGRAM_NAME" | grep "$SETT_MONTH" | grep "$eparchyCode" |grep -v grep |sort -u |wc -l `;
                     echo `date +"%Y-%m-%d %H:%M:%S"`" in while ps -ef ,AMOUNT="${AMOUNT}",AMOUNT2="${AMOUNT2}",MAX_ACTIVE="${MAX_ACTIVE} >> $callLogFile
                 done
                 sleep 10
@@ -222,10 +223,10 @@ for ruleTypeCode in ${arrRuleTypeCodes[@]}; do
         done
 done
 
-AMOUNT=` ps -ef |grep executeEng | grep -v $0 |grep -v grep |sort -u |wc -l `;
+AMOUNT=` ps -ef |grep executeEng | grep -v $0 | grep "$PROGRAM_NAME" | grep -v grep |sort -u |wc -l `;
 while [ "$AMOUNT" -ge 1 ]; do
         sleep 10
-        AMOUNT=` ps -ef |grep executeEng | grep -v $0 |grep -v grep |sort -u |wc -l `;
+        AMOUNT=` ps -ef |grep executeEng | grep -v $0 | grep "$PROGRAM_NAME" | grep -v grep |sort -u |wc -l `;
 done
 
 endTime=`date +%s`
